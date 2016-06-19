@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>City Map</title>
+
+	<script type="text/javascript">
+	<!--
+	var propX;
+	var propY;
+	function drawCityMap()
+	{
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+		width = parseInt(width) * 0.90;
+		height= parseInt(height) * 0.82;
+		
+		var canvas = document.getElementById('canvas');
+		canvas.width = parseInt(window.innerWidth) * 0.98;
+		canvas.height = parseInt(window.innerHeight) * 0.87;
+		
+		if (canvas.getContext)
+		{
+			var ct = canvas.getContext('2d');
+			var posX;
+			var poxY;
+			
+			
+			//draw all cities and roads
+			
+			
+		} 
+	}
+	
+	function drawCity(ct, x, y, color)
+	{
+		//every time a new graphic is drawn, beginPath() needs to be called.
+		//draw a circle, then draw city name.
+		ct.beginPath();
+		//X, Y, radian
+		ct.arc(x * propX, y * propY, 5, 0, Math.PI * 2, false);
+		ct.fillStyle = color;
+		ct.fill();
+		ct.strokeStyle = color;
+		ct.stroke();
+	}
+	
+	function drawRoad(ct, poiX, poiY, color)
+	{
+		//Draw lines
+		ct.beginPath();
+		
+		var i = 0;
+		ct.moveTo(poiX[i] * propX, poiY[i] * propY);
+		i++;
+		for(i; i < poiX.length; i++)
+		{
+			ct.lineTo(poiX[i] * propX, poiY[i] * propY);
+		}
+		ct.strokeStyle = color;
+		ct.stroke();
+	}
+	
+	function drawTextCityName(ct, x, y, name, color)
+	{
+		//draw city name
+		ct.beginPath();
+		ct.font = "12px Arial";
+		ct.fillStyle = color;
+		ct.fillText(name, ((x*propX) + 8), (y * propY) + 15);
+	
+	}
+	//-->
+	</script>
+
+	</head>
+	<body onLoad="drawCityMap()">
+		<h2>City Map</h2>
+		<canvas id="canvas" width="1290" height="550" style="background-color:#529739;">
+		<!-- <canvas id="canvas" style="background-color:#529739;"> -->
+			To display graphic, a browser that supports canvas tag.
+		</canvas>
+	</body>
+</html>

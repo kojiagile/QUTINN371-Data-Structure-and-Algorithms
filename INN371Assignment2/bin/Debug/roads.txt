@@ -1,0 +1,10 @@
+Canberra Sydney
+Canberra Melbourne
+Sydney Brisbane
+Brisbane Darwin
+Darwin Perth
+Perth Adelaide
+Adelaide Melbourne
+Melbourne Hobart
+Alice_Springs Darwin
+Alice_Springs Adelaide

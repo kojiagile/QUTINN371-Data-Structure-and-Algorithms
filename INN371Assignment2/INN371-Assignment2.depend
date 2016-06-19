@@ -1,0 +1,219 @@
+# depslib dependency file v1.0
+1429163736 source:h:\inn371\inn371-assignment1\main.cpp
+	<iostream>
+	"CityMap.h"
+
+1429161882 h:\inn371\inn371-assignment1\citymap.h
+	<string>
+	<vector>
+	<utility>
+	<set>
+	<map>
+	<deque>
+
+1429163333 source:h:\inn371\inn371-assignment1\citymap.cpp
+	"CityMap.h"
+	<map>
+	<iostream>
+	<fstream>
+	<cmath>
+	<cfloat>
+	<cstdlib>
+
+1429668088 source:d:\work\cb\inn371-assignment1\main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<cfloat>
+	<cmath>
+	"CityMap.h"
+
+1429668364 d:\work\cb\inn371-assignment1\citymap.h
+	<string>
+	<vector>
+	<utility>
+	<set>
+	<map>
+	<deque>
+
+1429668332 source:d:\work\cb\inn371-assignment1\citymap.cpp
+	"CityMap.h"
+	<map>
+	<iostream>
+	<fstream>
+	<cmath>
+	<cfloat>
+	<cstdlib>
+
+1429835263 source:c:\documents and settings\n5759803\my documents\dropbox\inn371-assignment1\main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<set>
+	<cfloat>
+	<cmath>
+	"CityMap.h"
+	"random.h"
+
+1429668364 c:\documents and settings\n5759803\my documents\dropbox\inn371-assignment1\citymap.h
+	<string>
+	<vector>
+	<utility>
+	<set>
+	<map>
+	<deque>
+
+1429750265 source:c:\documents and settings\n5759803\my documents\dropbox\inn371-assignment1\citymap.cpp
+	"CityMap.h"
+	<map>
+	<iostream>
+	<fstream>
+	<cmath>
+	<cfloat>
+	<cstdlib>
+
+1430913714 source:c:\users\asceai\dropbox\inn371-assignment1\citymap.cpp
+	"CityMap.h"
+	<map>
+	<iostream>
+	<fstream>
+	<cmath>
+	<cfloat>
+	<cstdlib>
+
+1430913778 c:\users\asceai\dropbox\inn371-assignment1\citymap.h
+	<string>
+	<vector>
+	<set>
+	<map>
+	<deque>
+	<utility>
+
+1430912118 source:c:\users\asceai\dropbox\inn371-assignment1\main.cpp
+	<iostream>
+	"CityMap.h"
+
+1395118565 source:c:\documents and settings\n5759803\my documents\dropbox\inn371-assignment1\random.cpp
+	<cstdlib>
+	<ctime>
+	"random.h"
+
+1395118545 c:\documents and settings\n5759803\my documents\dropbox\inn371-assignment1\random.h
+
+1433602773 source:c:\inn371assignment2\citymap.cpp
+	"CityMap.h"
+	"FileController.h"
+	<map>
+	<iostream>
+	<fstream>
+	<cmath>
+	<cfloat>
+	<cstdlib>
+
+1433602778 c:\inn371assignment2\citymap.h
+	<string>
+	<vector>
+	<set>
+	<map>
+	<deque>
+	<utility>
+
+1434068804 source:c:\inn371assignment2\filecontroller.cpp
+	<iostream>
+	<sstream>
+	<fstream>
+	<string>
+	<vector>
+	"FileController.h"
+
+1434041169 c:\inn371assignment2\filecontroller.h
+	<string>
+	<vector>
+
+1434279231 source:c:\inn371assignment2\main.cpp
+	<iostream>
+	<stdlib.h>
+	<errno.h>
+	<string>
+	<vector>
+	"BankBranchDeployer.h"
+	"TestBankBranchDeployer.h"
+
+1433645589 source:c:\inn371assignment2\kmedoid.cpp
+	"KMedoid.h"
+
+1433651479 c:\inn371assignment2\kmedoid.h
+	<string>
+	<map>
+
+1434274836 source:c:\inn371assignment2\bankbranchdeployer.cpp
+	"BankBranchDeployer.h"
+	"FileController.h"
+	"CityMap.h"
+	"Node.h"
+	"CityCombination.h"
+	<iostream>
+	<map>
+	<cstdlib>
+	<vector>
+	<time.h>
+	<cfloat>
+	<queue>
+
+1434275151 c:\inn371assignment2\bankbranchdeployer.h
+	"CityMap.h"
+	"Node.h"
+	"CityCombination.h"
+	<string>
+	<map>
+
+1434038414 c:\inn371assignment2\node.h
+	<string>
+	<map>
+	<vector>
+
+1434037937 source:c:\inn371assignment2\node.cpp
+	"Node.h"
+
+1434069039 source:c:\inn371assignment2\testfilecontroller.cpp
+	"TestFileController.h"
+	"BankBranchDeployer.h"
+	"FileController.h"
+	"CityMap.h"
+	"Node.h"
+	<string>
+	<iostream>
+	<sstream>
+	<fstream>
+	<map>
+	<cstdlib>
+	<vector>
+
+1434069054 c:\inn371assignment2\testfilecontroller.h
+
+1434278606 source:c:\inn371assignment2\testbankbranchdeployer.cpp
+	<stdio.h>
+	<iostream>
+	<sstream>
+	<fstream>
+	<string>
+	<vector>
+	<time.h>
+	"TestBankBranchDeployer.h"
+	"BankBranchDeployer.h"
+	"FileController.h"
+
+1434278324 c:\inn371assignment2\testbankbranchdeployer.h
+
+1434275882 c:\inn371assignment2\citycombination.h
+	<string>
+	<vector>
+	<map>
+
+1434275781 source:c:\inn371assignment2\citycombination.cpp
+	<iostream>
+	<map>
+	<cstdlib>
+	<vector>
+	"CityCombination.h"
+

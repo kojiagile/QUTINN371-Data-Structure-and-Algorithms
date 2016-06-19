@@ -1,0 +1,86 @@
+# depslib dependency file v1.0
+1429979458 source:c:\inn371-assignment1\city.cpp
+	<string>
+	<iterator>
+	<map>
+	<iostream>
+	<cfloat>
+
+1430055668 source:c:\inn371-assignment1\main.cpp
+	<iostream>
+	<math.h>
+	"City.h"
+	"CityMap.h"
+	"TestCityMap.h"
+
+1430053917 c:\inn371-assignment1\citymap.h
+	<string>
+	<vector>
+	<queue>
+	<math.h>
+	<cfloat>
+	<iostream>
+	<sstream>
+	<fstream>
+	<windows.h>
+	"City.h"
+
+1430003722 c:\inn371-assignment1\city.h
+	<string>
+	<vector>
+	<map>
+	"City.cpp"
+
+1429979458 c:\inn371-assignment1\city.cpp
+	<string>
+	<iterator>
+	<map>
+	<iostream>
+	<cfloat>
+
+1429958679 c:\inn371-assignment1\citymap.cpp
+
+1430054410 source:c:\inn371-assignment1\testcitymap.cpp
+	<iostream>
+	<string>
+	<sstream>
+	"City.h"
+	"CityMap.h"
+
+1429958679 source:c:\inn371-assignment1\citymap.cpp
+
+1430055630 c:\inn371-assignment1\testcitymap.h
+	"CityMap.h"
+	"TestCityMap.cpp"
+
+1430055749 c:\inn371-assignment1\testcitymap.cpp
+	<iostream>
+	<string>
+	<sstream>
+	"City.h"
+	"CityMap.h"
+
+1429958951 source:c:\inn371-assignment1\citymapgenerator.cpp
+
+1429808589 source:c:\inn371-assignment1\const.cpp
+
+1429958965 c:\inn371-assignment1\citymapgenerator.h
+
+1429955963 c:\inn371-assignment1\citymapgenerator.cpp
+	<string>
+	<vector>
+	<iostream>
+	<fstream>
+	<windows.h>
+	"City.h"
+	"CityMap.h"
+
+1429958202 source:c:\inn371-assignment1\generatoraccessor.cpp
+
+1429958014 c:\inn371-assignment1\generatoraccessor.h
+	<vector>
+	"CityMap.h"
+	"CityMapGenerator.h"
+
+1429957977 c:\inn371-assignment1\generatoraccessor.cpp
+

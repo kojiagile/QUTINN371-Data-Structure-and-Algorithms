@@ -1,0 +1,470 @@
+
+
+    /// const member declarations
+    template <typename T>
+    const double CityMap<T>::NO_DISTANCE = 0;
+    template <typename T>
+    const string CityMap<T>::MSG_TYPE_INFO = "*** INFO  *** ";
+    template <typename T>
+    const string CityMap<T>::MSG_TYPE_ERR = "*** ERROR *** ";
+    template <typename T>
+    const string CityMap<T>::MSG_TYPE_WARNING = "*** WARNING *** ";
+
+    template <typename T>
+    const string CityMap<T>::MSG_EMPTY_NAME = " --- Please specify correct city name. ";
+    //template <typename T>
+    //const string CityMap<T>::MSG_WRONG_NAME
+    template <typename T>
+    const string CityMap<T>::MSG_SAME_CITY = " --- Two cities are same.";
+    template <typename T>
+    const string CityMap<T>::MSG_NOT_CONNECTED = " --- Two cities are not connected ";
+    template <typename T>
+    const string CityMap<T>::ADE = "Adelaide";
+    template <typename T>
+    const string CityMap<T>::ALI = "Alice Springs";
+    template <typename T>
+    const string CityMap<T>::BRI = "Brisbane";
+    template <typename T>
+    const string CityMap<T>::CAN = "Canberra";
+    template <typename T>
+    const string CityMap<T>::CAI = "Cairns";
+    template <typename T>
+    const string CityMap<T>::DAR = "Darwin";
+    template <typename T>
+    const string CityMap<T>::HOB = "Hobart";
+    template <typename T>
+    const string CityMap<T>::MEL = "Melbourne";
+    template <typename T>
+    const string CityMap<T>::PER = "Perth";
+    template <typename T>
+    const string CityMap<T>::SYD = "Sydney";
+
+
+    // Add an implementation for the functions in the CityMap class here
+
+    template <typename T>
+    CityMap<T>::CityMap()
+	{
+
+	}
+
+    template <typename T>
+    CityMap<T>::~CityMap()
+	{
+	    typename map<string, City<T>*>::iterator it = this->cities.begin();
+	    City<T> *city;
+        while(it != this->cities.end())
+        {
+            city = it->second;
+            delete city;
+            city = NULL;
+            it++;
+        }
+	}
+
+    template <typename T>
+    void CityMap<T>::AddCity(string cityName, T x, T y)
+	{
+	    string msg = "City " + cityName + " has been added.";
+	    if(!this->IsValidName(cityName))
+        {
+            ShowMsg(MSG_TYPE_ERR, "AddCity() failed" + MSG_EMPTY_NAME);
+            return;
+        }
+        //when the city already exist
+        if(this->ExistCity(cityName))
+        {
+            ShowMsg(MSG_TYPE_ERR, "AddCity() failed --- City " + cityName + " already exist. ");
+            return;
+        }
+
+        City<T> *city = new City<T>(cityName, x, y);
+        this->cities[cityName] = city;
+        //ShowMsg(MSG_TYPE_INFO, msg);
+	}
+
+    template <typename T>
+    bool CityMap<T>::ExistCity(string cityName)
+    {
+        if(this->cities.find(cityName) == this->cities.end())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    template <typename T>
+    string CityMap<T>::CheckCities(string firstCity, string secondCity, bool checkSecond)
+    {
+        string msg = " --- City " + firstCity + " or " + secondCity + " does not exist.";
+	    if(!this->IsValidName(firstCity))
+        {
+            return MSG_EMPTY_NAME;
+        }
+        if(!this->ExistCity(firstCity))
+        {
+            return msg;
+        }
+
+        if(checkSecond)
+        {
+            if(!this->IsValidName(secondCity))
+            {
+                return MSG_EMPTY_NAME;
+            }
+            if(!this->ExistCity(secondCity))
+            {
+                return msg;
+            }
+            if(firstCity == secondCity)
+            {
+                return MSG_SAME_CITY;
+            }
+        }
+        return "";
+    }
+
+
+
+    // connect cities
+    template <typename T>
+    void CityMap<T>::AddRoad(string firstCity, string secondCity)
+	{
+	    string errMsg = this->CheckCities(firstCity, secondCity, true);
+	    if(errMsg != "")
+        {
+            ShowMsg(MSG_TYPE_ERR, "AddRoad() failed" + errMsg);
+            return;
+        }
+        City<T> *start = this->GetCityByName(firstCity);
+        City<T> *goal = this->GetCityByName(secondCity);
+
+        T cost = CalcCostToNextCity(start, goal);
+        start->SetNextCity(goal->GetName(), goal);
+        start->SetCostToNextCityByName(secondCity, cost);
+
+        goal->SetNextCity(start->GetName(), start);
+        goal->SetCostToNextCityByName(firstCity, cost);
+
+        //debug code
+	    //cout << this->MSG_TYPE_INFO << "Road " << firstCity << " - " << secondCity << "(" << cost << ")" << " has been added." << endl;
+        //this->ShowRelationWithCost(firstCity, secondCity, cost);
+	}
+
+    template <typename T>
+    void CityMap<T>::RemoveCity(string cityName)
+    {
+        string errMsg = this->CheckCities(cityName, "", false);
+	    if(errMsg != "")
+        {
+            ShowMsg(MSG_TYPE_ERR, "RemoveCity() failed" + errMsg);
+            return;
+        }
+        City<T> *city = this->GetCityByName(cityName);
+        City<T> *nextCity;
+        map<string, City<T>*> nextCities = city->GetNextCities();
+        map<string, T> costToNext = city->GetCostsToNextCities();
+        typename map<string, City<T>*>::iterator itNext = nextCities.begin();
+        typename map<string, T>::iterator itCost = costToNext.begin();
+
+        //Two cities are connected each other,
+        // thus the target city needs to be removed from next city's nextCities object
+        // as well as the cost to target city from the next cities.
+        while(itNext != nextCities.end())
+        {
+            nextCity = itNext->second;
+            nextCity->EraseNextCityByName(cityName);
+            nextCity->EraseCostToNextCityByName(cityName);
+            itNext++;
+        }
+
+        //delete the target city in the map
+        typename map<string, City<T>*>::iterator it = this->cities.find(cityName);
+        if(it != this->cities.end())
+        {
+            this->cities.erase(it);
+        }
+
+        //free allocated memory
+        delete city;
+        city = NULL;
+	    //this->ShowMsg(this->MSG_TYPE_INFO, cityName + " has been removed.");
+	}
+
+    // disconnect cities
+    template <typename T>
+    void CityMap<T>::RemoveRoad(string firstCity, string secondCity)
+	{
+	    string errMsg = this->CheckCities(firstCity, secondCity, true);
+	    if(errMsg != "")
+        {
+            ShowMsg(MSG_TYPE_ERR, "RemoveRoad() failed" + errMsg);
+            return;
+        }
+        City<T> *start = this->GetCityByName(firstCity);
+        City<T> *goal = this->GetCityByName(secondCity);
+
+        //both citis are automatically connected each other when a road is added,
+        //thus when second city does not exist in first city's nextCities object,
+        //that means that two cities are not connected.
+        map<string, City<T>*> nextCities = start->GetNextCities();
+        if(nextCities.find(secondCity) == nextCities.end())
+        {
+            ShowMsg(MSG_TYPE_ERR, "RemoveRoad() failed" + MSG_NOT_CONNECTED);
+            return;
+        }
+
+        //Two cities are connected each other, thus road needs to be deleted from both cities.
+        start->EraseNextCityByName(secondCity);
+        start->EraseCostToNextCityByName(secondCity);
+        goal->EraseNextCityByName(firstCity);
+        goal->EraseCostToNextCityByName(firstCity);
+	}
+
+    template <typename T>
+    T CityMap<T>::FindDistance(string firstCity, string secondCity)
+	{
+        T newTotalCost = 0;
+        string errMsg = this->CheckCities(firstCity, secondCity, true);
+	    if(errMsg != "")
+        {
+            ShowMsg(MSG_TYPE_ERR, "FindDistance() failed" + errMsg);
+            return newTotalCost;
+        }
+        priority_queue<City<T>*, vector<City<T>*>, greater<City<T>*> > pq;
+
+        //initialise
+        InitializePathAndCost();
+        City<T> *city;
+        City<T> *nextCity;
+
+        //start city has no cost (zero).
+        city = this->GetCityByName(firstCity);
+        city->SetTotalCost(0);
+        if(firstCity == secondCity)
+        {
+            city->GetTotalCost();
+        }
+
+        //push the first city to the queue.
+        pq.push(city);
+
+        //Get all next cities connected to the city.
+        map<string, City<T>*> nextCities;
+        map<string, T> costsToNextCities;
+        typename map<string, City<T>*>::iterator itNextCities;
+        while(!pq.empty())
+        {
+            city = pq.top();
+            pq.pop();
+
+            if(city->IsDoneCalc())
+            {
+                continue;
+            }
+
+            city->SetDoneCalc(true);
+            nextCities = city->GetNextCities();
+            itNextCities = nextCities.begin();
+            costsToNextCities = city->GetCostsToNextCities();
+
+            while(itNextCities != nextCities.end())
+            {
+                //get next city from iterator
+                nextCity = itNextCities->second;
+                newTotalCost = costsToNextCities[nextCity->GetName()];
+                if(city->GetTotalCost() != DBL_MAX)
+                {
+                    newTotalCost += city->GetTotalCost();
+                }
+                /*
+                if(city->GetTotalCost() == DBL_MAX)
+                {
+                    newTotalCost = costsToNextCities[nextCity->GetName()];
+                }
+                else
+                {
+                    newTotalCost = city->GetTotalCost() + costsToNextCities[nextCity->GetName()];
+                }
+                */
+
+                //if new total cost is smaller than current one, then it will be updated
+                if(newTotalCost < nextCity->GetTotalCost())
+                {
+                    nextCity->SetTotalCost(newTotalCost);
+                    nextCity->SetPrevCity(city);
+                    pq.push(nextCity);
+                }
+
+                itNextCities++;
+            }
+        }
+        city = this->GetCityByName(secondCity);
+        if(INFINITY == city->GetTotalCost() || DBL_MAX == city->GetTotalCost())
+        {
+            return NO_DISTANCE;
+        }
+        return city->GetTotalCost();
+	}
+
+    // Dijkstra
+    template <typename T>
+    vector<string> CityMap<T>::ShortestPath(string firstCity, string secondCity)
+	{
+        vector<string> paths;
+        string errMsg = this->CheckCities(firstCity, secondCity, true);
+	    if(errMsg != "")
+        {
+            ShowMsg(MSG_TYPE_ERR, "ShortestPath() failed" + errMsg);
+            return paths;
+        }
+
+        this->FindDistance(firstCity, secondCity);
+        string ret;
+        City<T> *goalCity = this->GetCityByName(secondCity);
+        ret = this->GetPreviCityName(goalCity, &paths);
+        paths.push_back(ret);
+
+        return paths;
+	}
+
+    // cities on the path
+    template <typename T>
+    void CityMap<T>::PrintPath(string firstCity, string secondCity)
+	{
+        string errMsg = this->CheckCities(firstCity, secondCity, true);
+	    if(errMsg != "")
+        {
+            ShowMsg(MSG_TYPE_ERR, "PrintPath() failed" + errMsg);
+            return;
+        }
+        T dist = this->FindDistance(firstCity, secondCity);
+        vector<string> paths = this->ShortestPath(firstCity, secondCity);
+
+	    string path = "Shortest Path: ";
+        //when no cities found or city names are not the same as the parameters
+        if(paths.size() < 1 || (paths[0] != firstCity || paths[paths.size() - 1] != secondCity))
+        {
+            path = MSG_NOT_CONNECTED + "---";
+        }
+        else
+        {
+            vector<string>::iterator it = paths.begin();
+            for(int i = 0; i < (int)paths.size(); i++)
+            {
+                path += *it;
+                if(i != (int)(paths.size() - 1))
+                {
+                    path += " -> ";
+                }
+                it++;
+            }
+        }
+        //path = this->ToString(path + " (Distance = ", dist) + " km)";
+        path += " (Distance = " + this->ToString(dist) + " km)";
+        cout << path << endl;
+
+        GeneratorAccessor ga;
+        ga.GenerateCityMap(cmap, paths);
+	}
+
+    template <typename T>
+    City<T>* CityMap<T>::GetCityByName(string cityName)
+    {
+        //If map instance is accessed with [] operator and the key doesn't exist,
+        //a new element will automatically be created, thus use find() method to find it.
+        if(this->cities.find(cityName) != this->cities.end())
+        {
+            return this->cities[cityName];
+        }
+        return NULL;
+    }
+
+    template <typename T>
+    map<string, City<T>*> CityMap<T>::GetCities()
+    {
+        return this->cities;
+    }
+
+    template <typename T>
+    T CityMap<T>::CalcCostToNextCity(City<T> *city1, City<T> *city2)
+    {
+        return this->CalcCostToNextCity(
+                    city1->GetX(), city1->GetY(),
+                    city2->GetX(), city2->GetY() );
+    }
+
+    template <typename T>
+    T CityMap<T>::CalcCostToNextCity(T city1X, T city1Y,
+                                                         T city2X, T city2Y )
+    {
+        T distX = city2X - city1X;
+        T distY = city2Y - city1Y;
+        return sqrt(pow(distX, 2.0) + pow(distY, 2.0));
+    }
+
+    template <typename T>
+    void CityMap<T>::InitializePathAndCost()
+    {
+        City<T> *city;
+        map<string, City<T>*> allCities = this->GetCities();
+        typename map<string, City<T>*>::iterator itAllCities = allCities.begin();
+        while(itAllCities != allCities.end())
+        {
+            city = itAllCities->second;
+            city->SetPrevCity(NULL);
+            city->SetDoneCalc(false);
+            city->SetTotalCost(DBL_MAX);
+            itAllCities++;
+        }
+    }
+
+    template <typename T>
+    string CityMap<T>::GetPreviCityName(City<T> *city, vector<string> *vecNames)
+    {
+        string ret;
+        if(city->GetPrevCity() != NULL)
+        {
+            ret = this->GetPreviCityName(city->GetPrevCity(), vecNames);
+            vecNames->push_back(ret);
+        }
+        ret = city->GetName();
+
+        return ret;
+    }
+
+    /*
+    template <typename T>
+    void CityMap<T>::ShowRelationWithCost(string start, string goal, T cost)
+    {
+        cout << MSG_TYPE_INFO << "Cost " << start << " - " << goal << " : " << cost << endl;
+    }
+    */
+
+    template <typename T>
+    void CityMap<T>::ClearAllCities()
+    {
+        this->cities.clear();
+    }
+
+    template <typename T>
+    bool CityMap<T>::IsValidName(string cityName)
+    {
+	    return cityName != "";
+    }
+
+    template <typename T>
+    void CityMap<T>::ShowMsg(string msgType, string message)
+    {
+        cout << msgType << message << endl;
+    }
+
+    template <typename T>
+    string CityMap<T>::ToString(T number)
+    {
+        ostringstream oss;
+        //oss << str << number;
+        oss << number;
+        return oss.str();
+    }
+

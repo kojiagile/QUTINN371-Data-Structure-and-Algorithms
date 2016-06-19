@@ -1,0 +1,9 @@
+Canberra 1445 849.8
+Sydney 1649 689.0
+Melbourne 1035 1128
+Brisbane 1829 -21.78
+Perth -1829 476.9
+Adelaide 409.3 807.4
+Hobart 1268 1692
+Darwin -355.6 -1692
+Alice_Springs -56.56 -440.6

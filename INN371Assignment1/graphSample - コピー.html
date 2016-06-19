@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>City Map</title>
+
+	<script type="text/javascript">
+	<!--
+	function drawCityMap()
+	{
+		
+		var canvas = document.getElementById('canvas');
+		if (canvas.getContext)
+		{
+
+			var ct = canvas.getContext('2d');
+			var name = "Test 1";
+			
+			//code here
+			
+			/*
+			//Draw lines
+			ct.beginPath();
+			ct.moveTo(100, 100);
+			ct.lineTo(200, 120);
+			ct.lineTo(900, 150);
+			ct.strokeStyle = "#FFFF00";
+			ct.stroke();
+			*/
+			
+			
+			ct.beginPath();
+			ct.arc(200, 250, 5, 0, Math.PI * 2, false);
+			ct.fillStyle = "#000000";
+			ct.fill();
+			ct.strokeStyle = "#000000";
+			ct.stroke();
+			ct.beginPath();
+			ct.arc(540, 80, 5, 0, Math.PI * 2, false);
+			ct.fillStyle = "#000000";
+			ct.fill();
+			ct.strokeStyle = "#000000";
+			ct.stroke();
+			ct.beginPath();
+			ct.arc(888, 400, 5, 0, Math.PI * 2, false);
+			ct.fillStyle = "#000000";
+			ct.fill();
+			ct.strokeStyle = "#000000";
+			ct.stroke();
+			
+			//fill in a circle
+			ct.fillStyle = "#000000";
+			ct.fill();
+			//
+			ct.strokeStyle = "#000000";
+			ct.stroke();
+			
+			
+			
+			
+			//左から20上から40の位置に、幅50高さ100の四角形を描く
+			//ct.fillRect(20,40,50,100); 
+			
+			//ct.beginPath();
+			//色を指定する
+			//ct.strokeStyle = 'rgb(00,00,255)'; //枠線の色は青
+			//ct.fillStyle = 'rgb(255,00,00)'; //塗りつぶしの色は赤
+
+			
+			ct.beginPath();
+			//左から200上から80の位置に、幅100高さ50の四角の枠線を描く
+			//ct.strokeRect(200,80,100,50);
+
+			//左から150上から75の位置に、半径60の半円を反時計回り（左回り）で描く
+			//ct.arc(150,75,60,Math.PI*1,Math.PI*2,true);
+			//ct.fill();
+
+		} 
+	}
+	
+	function drawCityWithName(ct, x, y, name, color)
+	{
+		//every time a new graphic is drawn, beginPath() needs to be called.
+		//draw a circle, then draw city name.
+		ct.beginPath();
+		//X, Y, radian
+		ct.arc(x, y, 5, 0, Math.PI * 2, false);
+		ct.fillStyle = color;
+		ct.fill();
+		ct.strokeStyle = color;
+		ct.stroke();
+		
+		//draw city name
+		ct.beginPath();
+		ct.font = "12px Arial";
+		ct.fillStyle = color;
+		ct.fillText(name, (x-20), (y+18));
+		
+	}
+	
+	function drawRoad(ct, poiX, poiY, color)
+	{
+		//Draw lines
+		ct.beginPath();
+		
+		var i = 0;
+		ct.moveTo(poiX[i], poiY[i]);
+		i++;
+		for(i; i < poiX.length; i++)
+		{
+			ct.lineTo(poiX[i], poiY[i]);
+		}
+		ct.strokeStyle = color;
+		ct.stroke();
+	}
+	
+	//-->
+	</script>
+
+	</head>
+	<body onLoad="drawCityMap()">
+		<h2>City Map</h2>
+		<canvas id="canvas" width="1290" height="550" style="background-color:#529739;">
+		<!-- <canvas id="canvas" style="background-color:#529739;"> -->
+			To display graphic, a browser that supports canvas tag.
+		</canvas>
+	</body>
+</html>

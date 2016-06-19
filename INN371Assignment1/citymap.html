@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>City Map</title>
+
+	<script type="text/javascript">
+	<!--
+	var propX;
+	var propY;
+	function drawCityMap()
+	{
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+		width = parseInt(width) * 0.98;
+		height= parseInt(height) * 0.885;
+		
+		var canvas = document.getElementById('canvas');
+		canvas.width = width;
+		canvas.height = height;
+		
+		if (canvas.getContext)
+		{
+			var ct = canvas.getContext('2d');
+			var posX;
+			var poxY;
+			
+			propX = width / 1000;
+			propY = height / 500;
+			//alert(propX);
+			//alert(propY);
+			
+			drawCity(ct, 100, 200, "#000000");
+			drawTextCityName(ct, 100, 200, "Brisbane", "#000000");
+			
+			
+
+			drawCity(ct, 950, 480, "#000000" );
+			drawTextCityName(ct, 950, 480, "Sydney", "#000000");
+			
+
+			drawCity(ct, 250, 80, "#000000" );
+			drawTextCityName(ct, 250, 80, "Cairns", "#000000");
+			
+			
+			
+			//drawRoad(ct, posX, posY, "#000000");
+			
+
+			drawCity(ct, 300, 400, "#000000" );
+			drawTextCityName(ct, 300, 400, "Mel", "#000000");
+			
+			
+			//code here
+			
+		} 
+	}
+	
+	function drawCity(ct, x, y, color)
+	{
+		//every time a new graphic is drawn, beginPath() needs to be called.
+		//draw a circle, then draw city name.
+		ct.beginPath();
+		//X, Y, radian
+		ct.arc(x * propX, y * propY, 5, 0, Math.PI * 2, false);
+		ct.fillStyle = color;
+		ct.fill();
+		ct.strokeStyle = color;
+		ct.stroke();
+	}
+	
+	function drawRoad(ct, poiX, poiY, color)
+	{
+		//Draw lines
+		ct.beginPath();
+		
+		var i = 0;
+		ct.moveTo(poiX[i] * propX, poiY[i] * propY);
+		i++;
+		for(i; i < poiX.length; i++)
+		{
+			ct.lineTo(poiX[i] * propX, poiY[i] * propY);
+		}
+		ct.strokeStyle = color;
+		ct.stroke();
+	}
+	
+	function drawTextCityName(ct, x, y, name, color)
+	{
+		//draw city name
+		ct.beginPath();
+		ct.font = "12px Arial";
+		ct.fillStyle = color;
+		ct.fillText(name, ((x*propX) + 8), (y * propY) + 4);
+	
+	}
+	
+	//-->
+	</script>
+
+	</head>
+	<body onLoad="drawCityMap()">
+		<h3>City Map</h3>
+		<!--<canvas id="canvas" width="1290" height="550" style="background-color:#529739;">-->
+		<!-- <canvas id="canvas" width="2000" height="550">-->
+		<canvas id="canvas" style="background-color:#529739;">
+			To display graphic, a browser that supports canvas tag is required.
+		</canvas>
+	</body>
+</html>
